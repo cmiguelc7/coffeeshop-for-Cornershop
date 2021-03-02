@@ -202,17 +202,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDE-dL-XuS">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cDE-dL-XuS">
                                 <rect key="frame" x="0.0" y="811" width="414" height="85"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ram-H3-quW">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                     </view>
-                                    <toolbar opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bMu-Vc-O6P">
-                                        <rect key="frame" x="0.0" y="5" width="414" height="44"/>
+                                    <toolbar opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMu-Vc-O6P">
+                                        <rect key="frame" x="0.0" y="4" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <items>
                                             <barButtonItem systemItem="trash" id="pqa-hT-YlP">
                                                 <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -244,22 +246,15 @@
                                         </items>
                                     </toolbar>
                                 </subviews>
-                                <color key="backgroundColor" red="0.9686403871" green="0.9686041474" blue="0.96862870450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="414" id="FkY-En-r1j"/>
-                                    <constraint firstAttribute="height" constant="85" id="pBV-Cv-nfZ"/>
-                                </constraints>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nUt-o7-oNd"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="B1R-bw-qqr" firstAttribute="top" secondItem="nUt-o7-oNd" secondAttribute="top" id="6bf-zn-Yl6"/>
-                            <constraint firstItem="cDE-dL-XuS" firstAttribute="leading" secondItem="nUt-o7-oNd" secondAttribute="leading" id="AS0-lN-fXA"/>
                             <constraint firstItem="B1R-bw-qqr" firstAttribute="leading" secondItem="nUt-o7-oNd" secondAttribute="leading" id="Aaz-B6-Sbt"/>
-                            <constraint firstAttribute="bottom" secondItem="cDE-dL-XuS" secondAttribute="bottom" id="BgJ-Nv-2qz"/>
                             <constraint firstItem="B1R-bw-qqr" firstAttribute="trailing" secondItem="nUt-o7-oNd" secondAttribute="trailing" id="MhP-W0-9x6"/>
-                            <constraint firstItem="cDE-dL-XuS" firstAttribute="trailing" secondItem="nUt-o7-oNd" secondAttribute="trailing" id="jA6-xd-uKA"/>
                             <constraint firstItem="nUt-o7-oNd" firstAttribute="bottom" secondItem="B1R-bw-qqr" secondAttribute="bottom" constant="49" id="wGY-Q0-Q5L"/>
                         </constraints>
                     </view>
@@ -335,7 +330,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MG0-8B-i70"/>
@@ -360,51 +355,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3q-JX-kak">
-                                <rect key="frame" x="13" y="108" width="388" height="59"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGR-Er-KVr">
+                                <rect key="frame" x="13" y="103" width="388" height="111"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Give it a name of counter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XNH-21-02a">
-                                        <rect key="frame" x="8" y="12" width="372" height="34"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3q-JX-kak">
+                                        <rect key="frame" x="4" y="0.0" width="380" height="59"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Give it a name of counter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XNH-21-02a">
+                                                <rect key="frame" x="8" y="12" width="364" height="34"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="4Fh-ww-9US"/>
+                                            <constraint firstAttribute="width" constant="380" id="QBw-TC-tIL"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Give it name. Creative block? See" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXh-Uf-2vQ">
+                                        <rect key="frame" x="19" y="73" width="229" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.53333333329999999" green="0.5450980392" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ur-lx-WvR">
+                                        <rect key="frame" x="252" y="73" width="70" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="examples">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.53333333329999999" green="0.5450980392" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <font key="NSFont" metaFont="system" size="15"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    <integer key="NSUnderline" value="1"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content=".">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.53333333329999999" green="0.5450980392" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <font key="NSFont" metaFont="system" size="15"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="t3q-JX-kak" secondAttribute="trailing" constant="4" id="Fvb-Q7-LRp"/>
+                                    <constraint firstItem="t3q-JX-kak" firstAttribute="leading" secondItem="zGR-Er-KVr" secondAttribute="leading" constant="4" id="QvI-DX-dic"/>
+                                    <constraint firstAttribute="width" constant="388" id="a8a-HI-Uku"/>
+                                    <constraint firstAttribute="height" constant="111" id="ikE-bd-MPh"/>
+                                    <constraint firstItem="t3q-JX-kak" firstAttribute="top" secondItem="zGR-Er-KVr" secondAttribute="top" id="lnV-hn-FlQ"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Give it name. Creative block? See" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXh-Uf-2vQ">
-                                <rect key="frame" x="13" y="176" width="229" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.53333333329999999" green="0.5450980392" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ur-lx-WvR">
-                                <rect key="frame" x="246" y="176" width="70" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="examples">
-                                        <attributes>
-                                            <color key="NSColor" red="0.53333333329999999" green="0.5450980392" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" metaFont="system" size="15"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            <integer key="NSUnderline" value="1"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=".">
-                                        <attributes>
-                                            <color key="NSColor" red="0.53333333329999999" green="0.5450980392" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" metaFont="system" size="15"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YgE-nc-TFe"/>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="YgE-nc-TFe" firstAttribute="trailing" secondItem="zGR-Er-KVr" secondAttribute="trailing" constant="13" id="V8B-Kg-gSr"/>
+                            <constraint firstItem="zGR-Er-KVr" firstAttribute="leading" secondItem="YgE-nc-TFe" secondAttribute="leading" constant="13" id="XDb-n0-MXH"/>
+                            <constraint firstItem="zGR-Er-KVr" firstAttribute="top" secondItem="YgE-nc-TFe" secondAttribute="top" constant="15" id="sIF-xs-Ri5"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Create Counter" id="ySg-Qc-6Vk">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="oeK-78-efg">
@@ -430,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zwV-EI-kzB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2554" y="94"/>
+            <point key="canvasLocation" x="2553.6231884057975" y="93.75"/>
         </scene>
         <!--Examples-->
         <scene sceneID="lAy-de-h2i">

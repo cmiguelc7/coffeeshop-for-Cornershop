@@ -75,7 +75,7 @@ class AddCounterViewController: UIViewController, AddCounterProtocol {
     func initFlowAddCounter(){
         
         if textFieldTitleCounter.text == "" {
-            showAlert(title: "Couldn't create the counter", message: "A name is necessary to be able to save the information")
+            showAlert(title: "Couldn't create the counter", message: "A name is necessary to be able to save the information.")
             return
         }
         
@@ -117,7 +117,9 @@ class AddCounterViewController: UIViewController, AddCounterProtocol {
     }
     
     func showViewErrorInServer() {
-        self.tryAgainSaveTheCounter()
+        DispatchQueue.main.async {
+            self.tryAgainSaveTheCounter()
+        }
     }
     
     

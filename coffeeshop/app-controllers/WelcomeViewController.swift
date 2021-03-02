@@ -53,6 +53,13 @@ class WelcomeViewController: UIViewController,UITableViewDelegate, UITableViewDa
         return arrayDataWelcome.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 200
+        }
+        return 70
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -61,13 +68,19 @@ class WelcomeViewController: UIViewController,UITableViewDelegate, UITableViewDa
         
         let title = dicObject.value(forKey: "title") as! String
         let description = dicObject.value(forKey: "description") as! String
-        let image = dicObject.value(forKey: "image") as! String
+        var image = dicObject.value(forKey: "image") as! String
         
         cell.textLabel?.text = title
-        //cell.textLabel?.font = UIFont.systemFont(ofSize: 50.0)
+        
         cell.detailTextLabel?.text = description
         cell.detailTextLabel?.numberOfLines = 5
-        //cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 40.0)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            image = image+"_ipad"
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 50.0)
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 33.0)
+        }
+        
         cell.imageView?.image = UIImage(named: image)
         
         let animation = AnimationFactory.makeMoveUpWithFade(rowHeight: cell.frame.height, duration: 0.7, delayFactor: 0.05)
