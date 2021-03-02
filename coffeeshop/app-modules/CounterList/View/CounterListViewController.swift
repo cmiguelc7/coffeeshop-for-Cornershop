@@ -8,22 +8,15 @@
 import Foundation
 import UIKit
 
+enum typeOpenAction:Int {
+    case CreateCounter = 1
+    case Retry = 2
+}
+
 class CounterListViewController: UIViewController, UISearchResultsUpdating, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchControllerDelegate, ErrorInformationDelegate, CounterListProtocol {
-    
-    func receiveCounterList(CounterLists: Array<Counter>) {
-        print("receiveCounterList")
-    }
-    
-    func showViewErrorServer() {
-        print("showViewErrorServer")
-    }
     
     func updateSearchResults(for searchController: UISearchController) {
         print("updateSearchResults")
-    }
-    
-    func touchErrorInformationAction() {
-        print("touchErrorInformationAction")
     }
     
     var presenter:CounterListPresenterProtocol?
@@ -48,8 +41,8 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     @IBOutlet weak var labelCountedItems: UILabel!
     
     
-    var arrayData:[Counter] = []
-    var filteredTableData:[Counter] = []
+    var arrayLocalCounterList:[Counter] = []
+    var filteredLocalCounterList:[Counter] = []
     var searchController = UISearchController()
     var isSearchingInfo: Bool = false
     var ativityIndicatorLoadCounters = UIActivityIndicatorView()
@@ -59,21 +52,24 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configVIPER()
         configUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
-        //initFlowCounters();
+        initFlowCounters();
     }
     
     func configVIPER(){
-        //BrastlewarkRouter.createModule(BrastlewarkRef: self)
+        CounterListRouter.createModule(counterListView: self)
         presenter?.viewDidLoad()
     }
     
     func configUI(){
+        
+        addErrorInformation()
         
         ativityIndicatorLoadCounters.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         tableViewCounters.backgroundView = ativityIndicatorLoadCounters
@@ -148,17 +144,163 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         navigationController?.navigationBar.backgroundColor = .white
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+    //MARK: FLOW COUNTERS
+    func initFlowCounters(){
         
+        //errorInformationVC.view.isHidden = true
+        
+        if Reachability.isConnectedToNetwork(){
+            print("vamos a pedir la informacion")
+            ativityIndicatorLoadCounters.startAnimating()
+            presenter?.getCounterList()
+        }else{
+            //showViewNoInternet()
+        }
+    }
+    
+    func receiveCounterList(arrayCounterList: Array<Counter>) {
+        
+        print("receiveCounterList")
+        
+        //self.filteredLocalCounterList.removeAll()
+        self.arrayLocalCounterList.removeAll()
+        
+        arrayLocalCounterList = arrayCounterList
+        
+        DispatchQueue.main.async {
+            
+            self.barButtonItemEdit.isEnabled = true
+            self.barButtonItemEdit.tintColor = UIColor.baseColorCounters()
+            
+            self.tableViewCounters.refreshControl?.endRefreshing()
+            self.ativityIndicatorLoadCounters.stopAnimating()
+            self.tableViewCounters.reloadData()
+            //self.totalItemsAndCalculatedTimes()
+        }
+        
+    }
+    
+    func showViewErrorInServer() {
+        DispatchQueue.main.async {
+            self.showViewErrorInformationInServer()
+            self.labelCountedItems.text = ""
+            self.tableViewCounters.refreshControl?.endRefreshing()
+        }
+    }
+    
+    func showViewErrorNoResults() {
+        DispatchQueue.main.async {
+            self.showViewErrorInformationNoResults()
+            self.labelCountedItems.text = ""
+            self.tableViewCounters.refreshControl?.endRefreshing()
+        }
+    }
+    
+    
+    //MARK: TABLE VIEW DELEGATES
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return arrayLocalCounterList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "identifierCounterCell", for: indexPath) as! CounterCell
       
+        let counter = arrayLocalCounterList[indexPath.row]
+        cell.configure(counter: counter, viewController: self)
+
         return cell
         
     }
+    
+    //MARK: UI ERROR SERVER
+    func touchErrorInformationAction() {
+        switch GLTypeButtonAction {
+            case typeOpenAction.CreateCounter.rawValue:
+                //openCreateCounter()
+                print("openCreateCounter")
+            case typeOpenAction.Retry.rawValue:
+                initFlowCounters()
+        default:
+            print("Vientos")
+        }
+    }
+    
+    func addErrorInformation(){
+        
+        errorInformationVC = (self.storyboard?.instantiateViewController(withIdentifier: "errorInformationID") as! ErrorInformation)
+        
+        addChild(errorInformationVC)
+        
+        errorInformationVC.delegate = self
+        errorInformationVC.stringIcon = "errorNoResults"
+        errorInformationVC.stringTitle = "-"
+        errorInformationVC.stringeDescription = "-"
+        errorInformationVC.stringButton = "-"
+        
+        errorInformationVC.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: self.view.frame.size.height-85)
+        
+        self.view.addSubview(errorInformationVC.view)
+        errorInformationVC.view.isHidden = true
+    }
+    
+    func showViewErrorInformationNoResults(){
+        
+        errorInformationVC.stringIcon = "errorNoResults"
+        errorInformationVC.stringTitle = "No counters yet"
+        errorInformationVC.stringeDescription = "When I started counting my blessings, my whole life turned around.\n--Whillie Nelson"
+        errorInformationVC.stringButton = "Create a counter"
+        errorInformationVC.setStrings()
+        
+        errorInformationVC.view.isHidden = false;
+        
+        GLTypeButtonAction = typeOpenAction.CreateCounter.rawValue
+        
+        self.labelCountedItems.text = ""
+        self.tableViewCounters.refreshControl?.endRefreshing()
+        
+        self.barButtonItemEdit.isEnabled = false
+        
+    }
+    
+    func showViewErrorInformationInServer(){
+        
+        errorInformationVC.stringIcon = "errorServer"
+        errorInformationVC.stringTitle = "Couldn't load the counters"
+        errorInformationVC.stringeDescription = "There was a problem on the server, please try again later."
+        errorInformationVC.stringButton = "Retry"
+        errorInformationVC.setStrings()
+        
+        errorInformationVC.view.isHidden = false;
+        
+        GLTypeButtonAction = typeOpenAction.Retry.rawValue
+        
+        self.labelCountedItems.text = ""
+        self.tableViewCounters.refreshControl?.endRefreshing()
+        
+        self.barButtonItemEdit.isEnabled = false
+        
+    }
+    
+    func showViewErrorInformationNoInternet(){
+        
+        errorInformationVC.stringIcon = "errroNoInternet"
+        errorInformationVC.stringTitle = "Couldn't load the counters"
+        errorInformationVC.stringeDescription = "The internet connection appears to be offline."
+        errorInformationVC.stringButton = "Retry"
+        errorInformationVC.setStrings()
+        
+        errorInformationVC.view.isHidden = false;
+        
+        GLTypeButtonAction = typeOpenAction.Retry.rawValue
+        
+        self.labelCountedItems.text = ""
+        self.tableViewCounters.refreshControl?.endRefreshing()
+        
+        self.barButtonItemEdit.isEnabled = false
+        
+    }
+    
     
 }

@@ -9,8 +9,9 @@ import UIKit
 
 protocol CounterListProtocol: class {
     //PRESENTER -> VIEW
-    func receiveCounterList(CounterLists:Array<Counter>)
-    func showViewErrorServer()
+    func receiveCounterList(arrayCounterList:Array<Counter>)
+    func showViewErrorInServer()
+    func showViewErrorNoResults()
 }
 
 
@@ -35,8 +36,9 @@ protocol CounterListInteractorProtocol: class {
 protocol CounterListOutputInteractorProtocol: class {
     //Interactor -> PresenterOutput
     
-    func receiveCounterList(counterLists: Array<Counter>)
-    func showViewErrorServer()
+    func receiveCounterList(arrayCounterList: Array<Counter>)
+    func showViewErrorInServer()
+    func showViewErrorNoResults()
 }
 
 

@@ -24,12 +24,16 @@ class CounterListPresenter: CounterListPresenterProtocol {
 
 extension CounterListPresenter: CounterListOutputInteractorProtocol {
     
-    func receiveCounterList(counterLists: Array<Counter>) {
-        view?.receiveCounterList(CounterLists: counterLists)
+    func receiveCounterList(arrayCounterList: Array<Counter>) {
+        view?.receiveCounterList(arrayCounterList: arrayCounterList)
     }
     
-    func showViewErrorServer() {
-        self.view?.showViewErrorServer()
+    func showViewErrorInServer() {
+        self.view?.showViewErrorInServer()
+    }
+    
+    func showViewErrorNoResults() {
+        self.view?.showViewErrorNoResults()
     }
 
 }
