@@ -46,17 +46,14 @@ class CounterCell: UITableViewCell {
         var type = 0
         
         if count > GLCounter.count {
-            print("Incrementando");
+            //print("Incrementando");
             type = 1
         }else{
-            print("Decrementando");
+            //print("Decrementando");
             type = 2
         }
         
-        //counterListViewController.initFlowIncrementDecrement(type: type, title: GLCounter.title, id: GLCounter.id, counterCell: self)
-        
-        //GLCounter.count = count
-        //self.colorDependingValue(count: count)
+        counterListViewController.initFlowIncrementDecrement(type: type, title: GLCounter.title, id: GLCounter.id, counterCell: self)
     }
     
     func colorDependingValue(count: Int!){

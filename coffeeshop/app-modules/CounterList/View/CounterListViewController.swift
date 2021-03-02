@@ -154,8 +154,6 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     
     func receiveCounterList(arrayCounterList: Array<Counter>) {
         
-        print("receiveCounterList")
-        
         self.filteredLocalCounterList.removeAll()
         self.arrayLocalCounterList.removeAll()
         
@@ -234,18 +232,18 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected methid is called")
+        //print("Selected methid is called")
         validateShowHideTrashAndShareTotalItems()
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        print("didDeselect methid is called")
+        //print("didDeselect methid is called")
         validateShowHideTrashAndShareTotalItems()
     }
     
     //MARK: SEARCH COUNTERS
     func updateSearchResults(for searchController: UISearchController) {
-        print("updateSearchResults")
+        
         if tableViewCounters.isEditing {
             actionHandlerDone()
         }
@@ -401,12 +399,381 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         self.navigationController?.pushViewController(createCounterViewController, animated: true)
     }
     
-    @IBAction func actionHandlerDelete(_ sender: Any) {
-        print("actionHandlerDelete")
+    @objc func actionHandlerShareInfo(){
+        
+        if let selectedRows = tableViewCounters.indexPathsForSelectedRows {
+            
+            var items:[Counter] = []
+            for indexPath in selectedRows  {
+                items.append(arrayLocalCounterList[indexPath.row])
+            }
+            
+            var textArray:[String] = []
+            
+            for item in items {
+                let string = String(format: "%i| %@", item.count, item.title)
+                textArray.append(string)
+            }
+            
+            let text = String(format: "This information is about our my counters: \n %@",textArray.joined(separator: ", "))
+            
+            let shareAll = [text]
+            let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+        
     }
     
-    @objc func actionHandlerShareInfo(){
-        print("actionHandlerShareInfo")
+    @IBAction func actionHandlerDelete(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Delete Counters", message: "Please Select an Option", preferredStyle: .actionSheet)
+        
+        alert.view.tintColor = UIColor.baseColorCounters()
+        
+        var titleDelete:String = "Delete Counters"
+        
+        if let selectedRows = tableViewCounters.indexPathsForSelectedRows {
+            titleDelete = String(format: "Delete %i counter%@", selectedRows.count,( selectedRows.count>1 ? "s" : ""))
+            if selectedRows.count == arrayLocalCounterList.count &&  selectedRows.count > 1 {
+                titleDelete = String(format: "Delete all counters")
+            }
+        }
+        alert.addAction(UIAlertAction(title: titleDelete, style: .destructive , handler:{ (UIAlertAction)in
+                            
+            self.validateOnlyOneCounterDelete()
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
+            print("Cancel")
+        }))
+
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
+        
+    }
+    
+    func validateOnlyOneCounterDelete(){
+        
+        if let selectedRows = tableViewCounters.indexPathsForSelectedRows {
+            
+            if selectedRows.count > 1 {
+                showAlertOnlyOneCounterDelete()
+            }else{
+                initFlowDeleteCounter()
+            }
+        }
+    }
+    
+    
+    func initFlowDeleteCounter() {
+        
+        if Reachability.isConnectedToNetwork(){
+            FlowDeleteCounterAPI()
+        }else{
+            tryAgainDeleteCounter()
+        }
+        
+    }
+    
+    func tryAgainDeleteCounter() {
+        
+        let indexPathSelected = tableViewCounters.indexPathForSelectedRow
+        
+        let counterObject = arrayLocalCounterList[indexPathSelected!.row]
+        
+        let titleAlert = String(format: "Couldn't delete counter \"%@\"", counterObject.title)
+        
+      
+        let alertController = UIAlertController(title: titleAlert, message:"The internet connection appears to be offline", preferredStyle: .alert)
+        
+        alertController.view.tintColor = UIColor.baseColorCounters()
+        
+        alertController.addAction(UIAlertAction(title: "Retry", style: .cancel, handler: {action in
+            alertController.dismiss(animated: true, completion: nil)
+            self.initFlowDeleteCounter()
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {action in
+            print("Dismiss only")
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func showAlertOnlyOneCounterDelete() {
+        
+        let alertController = UIAlertController(title: "Couldn't delete the counters", message:"Only one counter can be deleted at a time, please delete the others.", preferredStyle: .alert)
+        
+        alertController.view.tintColor = UIColor.baseColorCounters()
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func FlowDeleteCounterAPI(){
+        
+        let stringURL = String(format: "%@%@", Constants.baseURL, Api.COUNTER.rawValue)
+        let indexPathSelected = tableViewCounters.indexPathForSelectedRow
+        let idCounter = arrayLocalCounterList[indexPathSelected!.row].id
+        
+
+        guard let url = URL(string: stringURL) else {
+                print("Error: cannot create URL")
+                return
+            }
+            // Create the url request
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            
+            let parameterDictionary = ["id" : idCounter]
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            
+            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
+                    return
+            }
+            
+            request.httpBody = httpBody
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                
+                guard let data = data, error == nil else {
+                    // check for fundamental networking error
+                    print(" error = \(String(describing: error))")
+                    
+                    DispatchQueue.main.async {
+                        self.errorDeleteCounter()
+                    }
+                     return
+                 }
+
+                 if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                    // check for http errors
+                    DispatchQueue.main.async {
+                        self.errorDeleteCounter()
+                    }
+                    
+                 }
+
+                 do {
+                     if let convertedJsonIntoArray = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray {
+
+                         if convertedJsonIntoArray.count > 0 {
+                            
+                            DispatchQueue.main.async {
+                                self.initFlowCounters()
+                            }
+                            
+                         }
+                     }
+                 }
+                 catch let error as NSError {
+                     print("catch let error")
+                     print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.errorDeleteCounter()
+                    }
+                 }
+                    
+                
+        }.resume()
+    }
+    
+    func errorDeleteCounter(){
+        self.showAlert(title: "Couldn't delete the counter", message: "There was a problem on the server, please try again later.")
+    }
+
+    func showAlert(title:String, message: String) {
+        
+        let alertController = UIAlertController(title: title, message:
+        message, preferredStyle: .alert)
+        
+        alertController.view.tintColor = UIColor.baseColorCounters()
+        
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {action in
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteSelectedCounters(){
+        
+        if let selectedRows = tableViewCounters.indexPathsForSelectedRows {
+            
+            //1
+            var items:[Counter] = []
+            for indexPath in selectedRows  {
+                items.append(arrayLocalCounterList[indexPath.row])
+            }
+            
+            for item in items {
+                if let index = arrayLocalCounterList.firstIndex(of: item) {
+                    arrayLocalCounterList.remove(at: index)
+                }
+            }
+            
+            // 3
+            tableViewCounters.beginUpdates()
+            tableViewCounters.deleteRows(at: selectedRows, with: .automatic)
+            tableViewCounters.endUpdates()
+            
+        }
+    }
+    
+    //MARK: IMPLEMENTACION DE AUMENTAR Y DISMINUIR
+    var GLCounterCell: CounterCell!
+    
+    func initFlowIncrementDecrement(type:Int, title:String, id:String, counterCell:CounterCell){
+        
+        GLCounterCell = counterCell
+        
+        //1 = Increment and 2 = Drecement
+        if Reachability.isConnectedToNetwork(){
+            self.FlowPostSaveCounterAPI(type: type, title: title, id: id)
+        }else{
+            self.tryAgainIncDecCounter(type: type, title: title, id: id, option: "internet")
+        }
+        
+    }
+    
+    func updateCounterCell(type:Int){
+        
+        let indexPathTapped = self.tableViewCounters.indexPath(for: GLCounterCell)!
+        
+        if type == 1 {
+            GLCounterCell.GLCounter.count = GLCounterCell.GLCounter.count + 1
+        }else {
+            GLCounterCell.GLCounter.count = GLCounterCell.GLCounter.count - 1
+        }
+        
+        if isSearchingInfo {
+            
+            filteredLocalCounterList[indexPathTapped.row] = GLCounterCell.GLCounter
+            
+            for (index, counter) in arrayLocalCounterList.enumerated() {
+                if counter.id == GLCounterCell.GLCounter.id {
+                    arrayLocalCounterList[index] = GLCounterCell.GLCounter
+                    break
+                }
+            }
+            
+        }else {
+            arrayLocalCounterList[indexPathTapped.row] = GLCounterCell.GLCounter
+        }
+        
+        //GLCounterCell.colorDependingValue(count: GLCounterCell.GLCounter.count)
+        
+        self.tableViewCounters.reloadRows(at: [indexPathTapped], with: .fade)
+        GLCounterCell = nil
+        
+        totalItemsAndCalculatedTimes()
+        
+    }
+    
+    func FlowPostSaveCounterAPI(type:Int, title:String, id:String) {
+
+        var stringURL = String(format: "%@%@", Constants.baseURL, Api.INC_COUNTER.rawValue)
+        
+        if type == 2 {
+            stringURL = String(format: "%@%@", Constants.baseURL, Api.DEC_COUNTER.rawValue)
+        }
+        
+
+        guard let url = URL(string: stringURL) else {
+                print("Error: cannot create URL")
+                return
+            }
+            // Create the url request
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            let parameterDictionary = ["id" : id]
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            
+            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
+                    return
+            }
+            
+            request.httpBody = httpBody
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                
+                guard let data = data, error == nil else {
+                    // check for fundamental networking error
+                    print(" error = \(String(describing: error))")
+                    
+                    DispatchQueue.main.async {
+                        self.tryAgainIncDecCounter(type: type, title: title, id: id, option: "")
+                    }
+                     return
+                 }
+
+                 if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                    // check for http errors
+                    DispatchQueue.main.async {
+                        self.tryAgainIncDecCounter(type: type, title: title, id: id, option: "")
+                    }
+                    
+                 }
+
+                 do {
+                     if let convertedJsonIntoArray = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray {
+
+                         if convertedJsonIntoArray.count > 0 {
+                            
+                            DispatchQueue.main.async {
+                                self.updateCounterCell(type: type)
+                            }
+                            
+                         }
+                     }
+                 }
+                 catch let error as NSError {
+                     print("catch let error")
+                     print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.tryAgainIncDecCounter(type: type, title: title, id: id, option: "")
+                    }
+                 }
+                    
+                    
+                
+            }.resume()
+    }
+    
+    func tryAgainIncDecCounter(type:Int, title:String, id:String, option:String) {
+        
+        let titleAlert = String(format: "Couldn't update the \"%@\" counter to %@", title, type==1 ? "1":"-1")
+        
+        var message = "There was a problem on the server, please try again later."
+        
+        if option == "internet" {
+            message = "The internet connection appears to be offline."
+        }
+        
+        let alertController = UIAlertController(title: titleAlert, message:message, preferredStyle: .alert)
+        
+        alertController.view.tintColor = UIColor.baseColorCounters()
+        
+        alertController.addAction(UIAlertAction(title: "Retry", style: .cancel, handler: {action in
+            alertController.dismiss(animated: true, completion: nil)
+            self.initFlowIncrementDecrement(type: type, title: title, id: id, counterCell:self.GLCounterCell)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {action in
+            print("Dismiss only")
+        }))
+        
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //MARK: UI ERROR SERVER
