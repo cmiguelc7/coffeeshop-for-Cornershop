@@ -419,8 +419,17 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
             
             let shareAll = [text]
             let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
+            //activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            
+            if let wPPC = activityViewController.popoverPresentationController {
+                wPPC.sourceView = self.view
+                //  or
+                wPPC.barButtonItem = barButtonItemShare
+            }
+            
             self.present(activityViewController, animated: true, completion: nil)
+            
         }
         
     }
@@ -448,6 +457,10 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
             print("Cancel")
         }))
+        
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.barButtonItem = sender as? UIBarButtonItem
+        }
 
         self.present(alert, animated: true, completion: {
             print("completion block")

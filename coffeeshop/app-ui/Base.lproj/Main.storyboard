@@ -163,7 +163,7 @@
                                                     <subviews>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WhS-tK-6Af">
                                                             <rect key="frame" x="59" y="0.0" width="2" height="96"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3J-8l-rZb">
@@ -355,7 +355,7 @@
         <!--Create Counter-->
         <scene sceneID="fAw-Z6-cf5">
             <objects>
-                <viewController storyboardIdentifier="createCounterID" id="SIh-SK-gB3" customClass="AddCounterViewController" customModule="TestCornerShop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createCounterID" id="SIh-SK-gB3" customClass="AddCounterViewController" customModule="coffeeshop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SCR-t8-JUL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -435,7 +435,7 @@
         <!--Examples-->
         <scene sceneID="lAy-de-h2i">
             <objects>
-                <viewController storyboardIdentifier="examplesID" id="WAt-Sv-6zn" customClass="ExamplesViewController" customModule="TestCornerShop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="examplesID" id="WAt-Sv-6zn" customClass="ExamplesViewController" customModule="coffeeshop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BWD-DJ-4k6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
