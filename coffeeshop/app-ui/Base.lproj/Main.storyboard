@@ -289,7 +289,7 @@
         <!--Error Information-->
         <scene sceneID="bSV-Ga-QjN">
             <objects>
-                <viewController storyboardIdentifier="errorInformationID" id="rI8-VA-1iz" customClass="ErrorInformation" customModule="TestCornerShop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="errorInformationID" id="rI8-VA-1iz" customClass="ErrorInformation" customModule="coffeeshop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cvo-0a-WXV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -353,6 +353,7 @@
             <point key="canvasLocation" x="1700" y="-590"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="errorNoResults" width="75" height="100"/>
         <systemColor name="systemBackgroundColor">

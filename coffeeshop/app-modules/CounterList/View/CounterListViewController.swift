@@ -15,10 +15,6 @@ enum typeOpenAction:Int {
 
 class CounterListViewController: UIViewController, UISearchResultsUpdating, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchControllerDelegate, ErrorInformationDelegate, CounterListProtocol {
     
-    func updateSearchResults(for searchController: UISearchController) {
-        print("updateSearchResults")
-    }
-    
     var presenter:CounterListPresenterProtocol?
     
     @IBOutlet weak var containerToolBar: UIView!
@@ -82,8 +78,6 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         tableViewCounters.refreshControl = .init()
         //tableViewCounters.refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         
-        //tableViewCounters.addSubview(refreshControl)
-        
         searchBar()
         DispatchQueue.main.async { [weak self] in
             self?.navigationController?.navigationBar.sizeToFit()
@@ -91,10 +85,10 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         
         //BAR BUTTON ITEMS
         
-        //barButtonItemDone = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionHandlerDone))
+        barButtonItemDone = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionHandlerDone))
         barButtonItemDone.tintColor = UIColor.baseColorCounters()
         
-        //barButtonItemEdit = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(actionHandlerEdit))
+        barButtonItemEdit = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(actionHandlerEdit))
         barButtonItemEdit.tintColor = UIColor.baseColorCounters()
         self.navigationItem.setLeftBarButtonItems([barButtonItemEdit], animated: true)
         self.barButtonItemEdit.isEnabled = false
@@ -108,12 +102,12 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         //BAR BUTTON ITEM SHARE
         let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
         button.setImage(UIImage(named: "iconShare"), for: .normal)
-        //button.addTarget(self, action: #selector(self.shareInfo), for: UIControl.Event.touchUpInside)
+        button.addTarget(self, action: #selector(actionHandlerShareInfo), for: UIControl.Event.touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         button.backgroundColor = containerToolBar.backgroundColor
         barButtonItemShare = UIBarButtonItem(customView: button)
         
-        //barButtonItemAdd = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(actionHandlerAdd))
+        barButtonItemAdd = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(actionHandlerAdd))
         barButtonItemAdd.tintColor = UIColor.baseColorCounters()
         
         var toolbarItems = toolBarCounters.items
@@ -162,7 +156,7 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         
         print("receiveCounterList")
         
-        //self.filteredLocalCounterList.removeAll()
+        self.filteredLocalCounterList.removeAll()
         self.arrayLocalCounterList.removeAll()
         
         arrayLocalCounterList = arrayCounterList
@@ -175,7 +169,7 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
             self.tableViewCounters.refreshControl?.endRefreshing()
             self.ativityIndicatorLoadCounters.stopAnimating()
             self.tableViewCounters.reloadData()
-            //self.totalItemsAndCalculatedTimes()
+            self.totalItemsAndCalculatedTimes()
         }
         
     }
@@ -200,18 +194,218 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     //MARK: TABLE VIEW DELEGATES
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return arrayLocalCounterList.count
+        if  (isSearchingInfo) {
+            return filteredLocalCounterList.count
+        } else {
+            return arrayLocalCounterList.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "identifierCounterCell", for: indexPath) as! CounterCell
-      
-        let counter = arrayLocalCounterList[indexPath.row]
-        cell.configure(counter: counter, viewController: self)
-
-        return cell
         
+        if (isSearchingInfo) {
+            
+                let counterFilterData = filteredLocalCounterList[indexPath.row]
+                cell.configure(counter: counterFilterData, viewController: self)
+
+                return cell
+        }else{
+                let counter = arrayLocalCounterList[indexPath.row]
+                cell.configure(counter: counter, viewController: self)
+
+                return cell
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
+        tableView.setEditing(true, animated: true)
+    }
+    
+    func tableViewDidEndMultipleSelectionInteraction(_ tableView: UITableView) {
+        print("\(#function)")
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected methid is called")
+        validateShowHideTrashAndShareTotalItems()
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        print("didDeselect methid is called")
+        validateShowHideTrashAndShareTotalItems()
+    }
+    
+    //MARK: SEARCH COUNTERS
+    func updateSearchResults(for searchController: UISearchController) {
+        print("updateSearchResults")
+        if tableViewCounters.isEditing {
+            actionHandlerDone()
+        }
+        
+        filteredLocalCounterList.removeAll(keepingCapacity: false)
+        
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        
+        if searchText != "" {
+            isSearchingInfo = true
+            //searchController.obscuresBackgroundDuringPresentation = true
+        }else{
+            //searchController.obscuresBackgroundDuringPresentation = false
+            isSearchingInfo = false
+            tableViewCounters.reloadData()
+        }
+        
+        for (index, counterObject) in arrayLocalCounterList.enumerated() {
+            
+            if arrayLocalCounterList[index].title.lowercased().contains(searchText.lowercased()) {
+                filteredLocalCounterList.append(counterObject)
+            }
+            
+        }
+        
+        let labelNoResults:UILabel = UILabel()
+        labelNoResults.text = "No results"
+        labelNoResults.textAlignment = .center
+        labelNoResults.textColor = UIColor(red: 136/255.0, green: 139/255.0, blue: 144/255.0, alpha: 1.0)
+        labelNoResults.font = UIFont(name: "System", size: 20)
+        
+        
+        if filteredLocalCounterList.count == 0 && searchText != "" {
+            
+            tableViewCounters.backgroundView = labelNoResults
+        }else{
+            tableViewCounters.backgroundView = nil
+        }
+        
+        
+        tableViewCounters.reloadData()
+        
+        self.totalItemsAndCalculatedTimes()
+    }
+    
+    func totalItemsAndCalculatedTimes() {
+        
+        var totalDataItems = arrayLocalCounterList.count
+        var countedTimes = arrayLocalCounterList.map({$0.count}).reduce(0, +)
+        var pluralItems = arrayLocalCounterList.count > 1 ? "s" : ""
+        
+        if isSearchingInfo {
+            totalDataItems = filteredLocalCounterList.count
+            countedTimes = filteredLocalCounterList.map({$0.count}).reduce(0, +)
+            pluralItems = filteredLocalCounterList.count > 1 ? "s" : ""
+        }
+        
+        let stringTotal = String(format: "%i item%@ · Counted %i times",totalDataItems,pluralItems,countedTimes)
+        
+        self.labelCountedItems.text = stringTotal
+    
+    }
+    
+    func validateShowHideTrashAndShareTotalItems(){
+        
+        if let selectedRows = tableViewCounters.indexPathsForSelectedRows {
+            
+            if selectedRows.count > 0{
+                self.barButtonItemTrash.isEnabled = true
+                self.barButtonItemTrash.tintColor = UIColor.baseColorCounters()
+                
+                var toolbarItems = toolBarCounters.items
+                toolbarItems![4] = barButtonItemShare
+                toolBarCounters.setItems(toolbarItems, animated: true)
+                
+                
+                let stringSelected = String(format: "%i item%@ selected",selectedRows.count,selectedRows.count>1 ? "s" : "")
+                
+                labelCountedItems.text = stringSelected
+                
+            }
+        }else{
+            
+            self.barButtonItemTrash.isEnabled = false
+            self.barButtonItemTrash.tintColor = .clear
+            
+            var toolbarItems = toolBarCounters.items
+            toolbarItems![4] = barButtonItemAdd
+            toolBarCounters.setItems(toolbarItems, animated: true)
+            
+            labelCountedItems.text = "No item selected"
+            
+        }
+    }
+    
+    //MARK: ACTION HANDLERS
+    @objc func actionHandlerEdit(){
+        
+        if !tableViewCounters.isEditing {
+            
+            tableViewCounters.setEditing(true, animated: true)
+            self.navigationItem.setLeftBarButtonItems([barButtonItemDone], animated: true)
+            
+            self.barButtonItemSelectAll.isEnabled = true
+            self.barButtonItemSelectAll.tintColor = UIColor.baseColorCounters()
+            
+            labelCountedItems.text = "No item selected"
+            
+        }
+        
+    }
+    
+    @objc func actionHandlerDone(){
+        
+        tableViewCounters.setEditing(false, animated: true)
+        
+        self.barButtonItemTrash.isEnabled = false
+        self.barButtonItemTrash.tintColor = .clear
+        
+        self.barButtonItemSelectAll.isEnabled = false
+        self.barButtonItemSelectAll.tintColor = .clear
+        
+        var toolbarItems = toolBarCounters.items
+        toolbarItems![4] = barButtonItemAdd
+        toolBarCounters.setItems(toolbarItems, animated: true)
+        
+        self.navigationItem.setLeftBarButtonItems([barButtonItemEdit], animated: true)
+        
+        totalItemsAndCalculatedTimes()
+        
+    }
+    
+    @IBAction func actionHandlerSelectAll(_ sender: Any) {
+        
+        let totalRows = tableViewCounters.numberOfRows(inSection: 0)
+        
+        for row in 0..<totalRows {
+            tableViewCounters.selectRow(at: NSIndexPath(row: row, section: 0) as IndexPath, animated: false, scrollPosition: UITableView.ScrollPosition.none)
+        }
+        
+        validateShowHideTrashAndShareTotalItems()
+        
+    }
+    
+    @objc func actionHandlerAdd(){
+        openCreateCounter()
+    }
+    
+    func openCreateCounter(){
+        print("openCreateCounter")
+    }
+    
+    @IBAction func actionHandlerDelete(_ sender: Any) {
+        print("actionHandlerDelete")
+    }
+    
+    @objc func actionHandlerShareInfo(){
+        print("actionHandlerShareInfo")
     }
     
     //MARK: UI ERROR SERVER
@@ -301,6 +495,5 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
         self.barButtonItemEdit.isEnabled = false
         
     }
-    
     
 }
