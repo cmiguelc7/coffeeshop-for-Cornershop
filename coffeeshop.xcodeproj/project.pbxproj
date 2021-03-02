@@ -32,6 +32,14 @@
 		DB7178BA25EDF442004166B8 /* CounterListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178B925EDF442004166B8 /* CounterListInteractor.swift */; };
 		DB7178BF25EDF71E004166B8 /* GlobalMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178BE25EDF71E004166B8 /* GlobalMembers.swift */; };
 		DB7178C525EDFCCD004166B8 /* CounterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178C425EDFCCD004166B8 /* CounterCell.swift */; };
+		DB7178D725EE0E5D004166B8 /* AddCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178D625EE0E5D004166B8 /* AddCounterViewController.swift */; };
+		DB7178DF25EE0EBE004166B8 /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178DE25EE0EBE004166B8 /* ExamplesViewController.swift */; };
+		DB7178EC25EE11F0004166B8 /* AddCounterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178EB25EE11F0004166B8 /* AddCounterProtocol.swift */; };
+		DB7178F125EE1491004166B8 /* AddCounterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178F025EE1491004166B8 /* AddCounterPresenter.swift */; };
+		DB7178F625EE1537004166B8 /* AddCounterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178F525EE1537004166B8 /* AddCounterInteractor.swift */; };
+		DB7178FB25EE1969004166B8 /* AddCounterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178FA25EE1969004166B8 /* AddCounterRouter.swift */; };
+		DB71790525EE1B61004166B8 /* CustomLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB71790325EE1B61004166B8 /* CustomLabelCell.xib */; };
+		DB71790625EE1B61004166B8 /* CustomLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71790425EE1B61004166B8 /* CustomLabelCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +91,14 @@
 		DB7178B925EDF442004166B8 /* CounterListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterListInteractor.swift; sourceTree = "<group>"; };
 		DB7178BE25EDF71E004166B8 /* GlobalMembers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalMembers.swift; sourceTree = "<group>"; };
 		DB7178C425EDFCCD004166B8 /* CounterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterCell.swift; sourceTree = "<group>"; };
+		DB7178D625EE0E5D004166B8 /* AddCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCounterViewController.swift; sourceTree = "<group>"; };
+		DB7178DE25EE0EBE004166B8 /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
+		DB7178EB25EE11F0004166B8 /* AddCounterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCounterProtocol.swift; sourceTree = "<group>"; };
+		DB7178F025EE1491004166B8 /* AddCounterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCounterPresenter.swift; sourceTree = "<group>"; };
+		DB7178F525EE1537004166B8 /* AddCounterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCounterInteractor.swift; sourceTree = "<group>"; };
+		DB7178FA25EE1969004166B8 /* AddCounterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCounterRouter.swift; sourceTree = "<group>"; };
+		DB71790325EE1B61004166B8 /* CustomLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomLabelCell.xib; sourceTree = "<group>"; };
+		DB71790425EE1B61004166B8 /* CustomLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabelCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +190,7 @@
 		DB71785325EDE987004166B8 /* app-modules */ = {
 			isa = PBXGroup;
 			children = (
+				DB7178CF25EE0E1E004166B8 /* AddCounter */,
 				DB71788025EDED28004166B8 /* CounterList */,
 			);
 			path = "app-modules";
@@ -299,6 +316,77 @@
 			path = CounterCell;
 			sourceTree = "<group>";
 		};
+		DB7178CF25EE0E1E004166B8 /* AddCounter */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178D225EE0E1E004166B8 /* View */,
+				DB7178D025EE0E1E004166B8 /* Entity */,
+				DB7178D125EE0E1E004166B8 /* Presenter */,
+				DB7178D325EE0E1E004166B8 /* Protocols */,
+				DB7178D425EE0E1E004166B8 /* Interactor */,
+				DB7178D525EE0E1E004166B8 /* Router */,
+			);
+			path = AddCounter;
+			sourceTree = "<group>";
+		};
+		DB7178D025EE0E1E004166B8 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		DB7178D125EE0E1E004166B8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178F025EE1491004166B8 /* AddCounterPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DB7178D225EE0E1E004166B8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB71790225EE1B61004166B8 /* ExampleLabelCell */,
+				DB7178D625EE0E5D004166B8 /* AddCounterViewController.swift */,
+				DB7178DE25EE0EBE004166B8 /* ExamplesViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB7178D325EE0E1E004166B8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178EB25EE11F0004166B8 /* AddCounterProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		DB7178D425EE0E1E004166B8 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178F525EE1537004166B8 /* AddCounterInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		DB7178D525EE0E1E004166B8 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178FA25EE1969004166B8 /* AddCounterRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		DB71790225EE1B61004166B8 /* ExampleLabelCell */ = {
+			isa = PBXGroup;
+			children = (
+				DB71790325EE1B61004166B8 /* CustomLabelCell.xib */,
+				DB71790425EE1B61004166B8 /* CustomLabelCell.swift */,
+			);
+			path = ExampleLabelCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -405,6 +493,7 @@
 				DB71785D25EDE987004166B8 /* Main.storyboard in Resources */,
 				DB71781D25EDE709004166B8 /* Assets.xcassets in Resources */,
 				DB71785C25EDE987004166B8 /* LaunchScreen.storyboard in Resources */,
+				DB71790525EE1B61004166B8 /* CustomLabelCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,8 +523,10 @@
 				DB71785A25EDE987004166B8 /* AppDelegate.swift in Sources */,
 				DB71787025EDEA5B004166B8 /* CurrentDevice.swift in Sources */,
 				DB71789525EDEE00004166B8 /* ErrorInformation.swift in Sources */,
+				DB71790625EE1B61004166B8 /* CustomLabelCell.swift in Sources */,
 				DB7178A525EDEEDD004166B8 /* CALayer+ApplySketchShadow.swift in Sources */,
 				DB7178A125EDEEDD004166B8 /* UITableView+Ext.swift in Sources */,
+				DB7178F625EE1537004166B8 /* AddCounterInteractor.swift in Sources */,
 				DB71785925EDE987004166B8 /* WelcomeViewController.swift in Sources */,
 				DB7178BF25EDF71E004166B8 /* GlobalMembers.swift in Sources */,
 				DB71788825EDED4B004166B8 /* CounterListViewController.swift in Sources */,
@@ -443,11 +534,16 @@
 				DB7178A325EDEEDD004166B8 /* UITextField+imageLeft.swift in Sources */,
 				DB7178A625EDEEDD004166B8 /* UIColor+ColorCounters.swift in Sources */,
 				DB7178AB25EDF159004166B8 /* CounterListProtocol.swift in Sources */,
+				DB7178F125EE1491004166B8 /* AddCounterPresenter.swift in Sources */,
+				DB7178EC25EE11F0004166B8 /* AddCounterProtocol.swift in Sources */,
 				DB71789025EDEDB5004166B8 /* Counter.swift in Sources */,
 				DB7178BA25EDF442004166B8 /* CounterListInteractor.swift in Sources */,
+				DB7178D725EE0E5D004166B8 /* AddCounterViewController.swift in Sources */,
 				DB71785B25EDE987004166B8 /* SceneDelegate.swift in Sources */,
 				DB71787425EDEA5B004166B8 /* Reachability.swift in Sources */,
+				DB7178DF25EE0EBE004166B8 /* ExamplesViewController.swift in Sources */,
 				DB7178B025EDF2C6004166B8 /* CounterListRouter.swift in Sources */,
+				DB7178FB25EE1969004166B8 /* AddCounterRouter.swift in Sources */,
 				DB7178B525EDF347004166B8 /* CounterListPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

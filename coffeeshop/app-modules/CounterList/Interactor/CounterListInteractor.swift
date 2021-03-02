@@ -68,5 +68,5 @@ class CounterListInteractor: CounterListInteractorProtocol {
                  }
                     
             }.resume()
-        }
-    }
+     }
+}

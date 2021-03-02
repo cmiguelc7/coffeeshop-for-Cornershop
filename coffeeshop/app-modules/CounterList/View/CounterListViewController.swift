@@ -141,14 +141,14 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     //MARK: FLOW COUNTERS
     func initFlowCounters(){
         
-        //errorInformationVC.view.isHidden = true
+        errorInformationVC.view.isHidden = true
         
         if Reachability.isConnectedToNetwork(){
             print("vamos a pedir la informacion")
             ativityIndicatorLoadCounters.startAnimating()
             presenter?.getCounterList()
         }else{
-            //showViewNoInternet()
+            showViewErrorInformationNoInternet()
         }
     }
     
@@ -397,7 +397,8 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     }
     
     func openCreateCounter(){
-        print("openCreateCounter")
+        let createCounterViewController = self.storyboard?.instantiateViewController(identifier: "createCounterID") as! AddCounterViewController
+        self.navigationController?.pushViewController(createCounterViewController, animated: true)
     }
     
     @IBAction func actionHandlerDelete(_ sender: Any) {
