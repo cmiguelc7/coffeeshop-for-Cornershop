@@ -41,11 +41,11 @@ class WelcomeViewController: UIViewController,UITableViewDelegate, UITableViewDa
     }
 
     @IBAction func openListCounters(_ sender: Any) {
-        /*let countersTableViewController = self.storyboard?.instantiateViewController(identifier: "countersListID") as! CountersListViewController
+        let countersTableViewController = self.storyboard?.instantiateViewController(identifier: "counterListID") as! CounterListViewController
         let navigationController = UINavigationController(rootViewController: countersTableViewController)
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.modalTransitionStyle = .crossDissolve
-        self.present(navigationController, animated: true, completion: nil)*/
+        self.present(navigationController, animated: true, completion: nil)
         
     }
     

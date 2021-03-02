@@ -16,12 +16,20 @@
 		DB71785C25EDE987004166B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB71785525EDE987004166B8 /* LaunchScreen.storyboard */; };
 		DB71785D25EDE987004166B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB71785725EDE987004166B8 /* Main.storyboard */; };
 		DB71787025EDEA5B004166B8 /* CurrentDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71786925EDEA5B004166B8 /* CurrentDevice.swift */; };
-		DB71787125EDEA5B004166B8 /* CALayer+ApplySketchShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71786A25EDEA5B004166B8 /* CALayer+ApplySketchShadow.swift */; };
-		DB71787225EDEA5B004166B8 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71786B25EDEA5B004166B8 /* UITableView+Ext.swift */; };
-		DB71787325EDEA5B004166B8 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71786C25EDEA5B004166B8 /* Animations.swift */; };
 		DB71787425EDEA5B004166B8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71786D25EDEA5B004166B8 /* Reachability.swift */; };
-		DB71787525EDEA5B004166B8 /* UITextField+imageLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71786E25EDEA5B004166B8 /* UITextField+imageLeft.swift */; };
-		DB71787625EDEA5B004166B8 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71786F25EDEA5B004166B8 /* Animator.swift */; };
+		DB71788825EDED4B004166B8 /* CounterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71788725EDED4B004166B8 /* CounterListViewController.swift */; };
+		DB71789025EDEDB5004166B8 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71788F25EDEDB5004166B8 /* Counter.swift */; };
+		DB71789525EDEE00004166B8 /* ErrorInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71789425EDEE00004166B8 /* ErrorInformation.swift */; };
+		DB7178A125EDEEDD004166B8 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71789A25EDEEDD004166B8 /* UITableView+Ext.swift */; };
+		DB7178A225EDEEDD004166B8 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71789B25EDEEDD004166B8 /* Animations.swift */; };
+		DB7178A325EDEEDD004166B8 /* UITextField+imageLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71789C25EDEEDD004166B8 /* UITextField+imageLeft.swift */; };
+		DB7178A425EDEEDD004166B8 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71789D25EDEEDD004166B8 /* Animator.swift */; };
+		DB7178A525EDEEDD004166B8 /* CALayer+ApplySketchShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71789F25EDEEDD004166B8 /* CALayer+ApplySketchShadow.swift */; };
+		DB7178A625EDEEDD004166B8 /* UIColor+ColorCounters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178A025EDEEDD004166B8 /* UIColor+ColorCounters.swift */; };
+		DB7178AB25EDF159004166B8 /* CounterListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178AA25EDF159004166B8 /* CounterListProtocol.swift */; };
+		DB7178B025EDF2C6004166B8 /* CounterListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178AF25EDF2C6004166B8 /* CounterListRouter.swift */; };
+		DB7178B525EDF347004166B8 /* CounterListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178B425EDF347004166B8 /* CounterListPresenter.swift */; };
+		DB7178BA25EDF442004166B8 /* CounterListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7178B925EDF442004166B8 /* CounterListInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,12 +65,20 @@
 		DB71785625EDE987004166B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB71785825EDE987004166B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB71786925EDEA5B004166B8 /* CurrentDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentDevice.swift; sourceTree = "<group>"; };
-		DB71786A25EDEA5B004166B8 /* CALayer+ApplySketchShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+ApplySketchShadow.swift"; sourceTree = "<group>"; };
-		DB71786B25EDEA5B004166B8 /* UITableView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
-		DB71786C25EDEA5B004166B8 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		DB71786D25EDEA5B004166B8 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		DB71786E25EDEA5B004166B8 /* UITextField+imageLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+imageLeft.swift"; sourceTree = "<group>"; };
-		DB71786F25EDEA5B004166B8 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		DB71788725EDED4B004166B8 /* CounterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterListViewController.swift; sourceTree = "<group>"; };
+		DB71788F25EDEDB5004166B8 /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		DB71789425EDEE00004166B8 /* ErrorInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorInformation.swift; sourceTree = "<group>"; };
+		DB71789A25EDEEDD004166B8 /* UITableView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		DB71789B25EDEEDD004166B8 /* Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		DB71789C25EDEEDD004166B8 /* UITextField+imageLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+imageLeft.swift"; sourceTree = "<group>"; };
+		DB71789D25EDEEDD004166B8 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		DB71789F25EDEEDD004166B8 /* CALayer+ApplySketchShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+ApplySketchShadow.swift"; sourceTree = "<group>"; };
+		DB7178A025EDEEDD004166B8 /* UIColor+ColorCounters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorCounters.swift"; sourceTree = "<group>"; };
+		DB7178AA25EDF159004166B8 /* CounterListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterListProtocol.swift; sourceTree = "<group>"; };
+		DB7178AF25EDF2C6004166B8 /* CounterListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterListRouter.swift; sourceTree = "<group>"; };
+		DB7178B425EDF347004166B8 /* CounterListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterListPresenter.swift; sourceTree = "<group>"; };
+		DB7178B925EDF442004166B8 /* CounterListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterListInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +170,7 @@
 		DB71785325EDE987004166B8 /* app-modules */ = {
 			isa = PBXGroup;
 			children = (
+				DB71788025EDED28004166B8 /* CounterList */,
 			);
 			path = "app-modules";
 			sourceTree = "<group>";
@@ -178,15 +195,94 @@
 		DB71786825EDEA5B004166B8 /* ui-utils */ = {
 			isa = PBXGroup;
 			children = (
+				DB71789E25EDEEDD004166B8 /* categories */,
+				DB71789925EDEEDD004166B8 /* tableCellAnimation */,
 				DB71786925EDEA5B004166B8 /* CurrentDevice.swift */,
-				DB71786A25EDEA5B004166B8 /* CALayer+ApplySketchShadow.swift */,
-				DB71786B25EDEA5B004166B8 /* UITableView+Ext.swift */,
-				DB71786C25EDEA5B004166B8 /* Animations.swift */,
 				DB71786D25EDEA5B004166B8 /* Reachability.swift */,
-				DB71786E25EDEA5B004166B8 /* UITextField+imageLeft.swift */,
-				DB71786F25EDEA5B004166B8 /* Animator.swift */,
 			);
 			path = "ui-utils";
+			sourceTree = "<group>";
+		};
+		DB71788025EDED28004166B8 /* CounterList */ = {
+			isa = PBXGroup;
+			children = (
+				DB71788325EDED28004166B8 /* View */,
+				DB71788125EDED28004166B8 /* Entity */,
+				DB71788225EDED28004166B8 /* Presenter */,
+				DB71788425EDED28004166B8 /* Protocols */,
+				DB71788525EDED28004166B8 /* Interactor */,
+				DB71788625EDED28004166B8 /* Router */,
+			);
+			path = CounterList;
+			sourceTree = "<group>";
+		};
+		DB71788125EDED28004166B8 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				DB71788F25EDEDB5004166B8 /* Counter.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		DB71788225EDED28004166B8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178B425EDF347004166B8 /* CounterListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DB71788325EDED28004166B8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB71788725EDED4B004166B8 /* CounterListViewController.swift */,
+				DB71789425EDEE00004166B8 /* ErrorInformation.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB71788425EDED28004166B8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178AA25EDF159004166B8 /* CounterListProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		DB71788525EDED28004166B8 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178B925EDF442004166B8 /* CounterListInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		DB71788625EDED28004166B8 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				DB7178AF25EDF2C6004166B8 /* CounterListRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		DB71789925EDEEDD004166B8 /* tableCellAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				DB71789A25EDEEDD004166B8 /* UITableView+Ext.swift */,
+				DB71789B25EDEEDD004166B8 /* Animations.swift */,
+				DB71789C25EDEEDD004166B8 /* UITextField+imageLeft.swift */,
+				DB71789D25EDEEDD004166B8 /* Animator.swift */,
+			);
+			path = tableCellAnimation;
+			sourceTree = "<group>";
+		};
+		DB71789E25EDEEDD004166B8 /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				DB71789F25EDEEDD004166B8 /* CALayer+ApplySketchShadow.swift */,
+				DB7178A025EDEEDD004166B8 /* UIColor+ColorCounters.swift */,
+			);
+			path = categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,16 +415,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB71787625EDEA5B004166B8 /* Animator.swift in Sources */,
+				DB7178A425EDEEDD004166B8 /* Animator.swift in Sources */,
 				DB71785A25EDE987004166B8 /* AppDelegate.swift in Sources */,
 				DB71787025EDEA5B004166B8 /* CurrentDevice.swift in Sources */,
+				DB71789525EDEE00004166B8 /* ErrorInformation.swift in Sources */,
+				DB7178A525EDEEDD004166B8 /* CALayer+ApplySketchShadow.swift in Sources */,
+				DB7178A125EDEEDD004166B8 /* UITableView+Ext.swift in Sources */,
 				DB71785925EDE987004166B8 /* WelcomeViewController.swift in Sources */,
-				DB71787225EDEA5B004166B8 /* UITableView+Ext.swift in Sources */,
-				DB71787525EDEA5B004166B8 /* UITextField+imageLeft.swift in Sources */,
-				DB71787125EDEA5B004166B8 /* CALayer+ApplySketchShadow.swift in Sources */,
+				DB71788825EDED4B004166B8 /* CounterListViewController.swift in Sources */,
+				DB7178A225EDEEDD004166B8 /* Animations.swift in Sources */,
+				DB7178A325EDEEDD004166B8 /* UITextField+imageLeft.swift in Sources */,
+				DB7178A625EDEEDD004166B8 /* UIColor+ColorCounters.swift in Sources */,
+				DB7178AB25EDF159004166B8 /* CounterListProtocol.swift in Sources */,
+				DB71789025EDEDB5004166B8 /* Counter.swift in Sources */,
+				DB7178BA25EDF442004166B8 /* CounterListInteractor.swift in Sources */,
 				DB71785B25EDE987004166B8 /* SceneDelegate.swift in Sources */,
 				DB71787425EDEA5B004166B8 /* Reachability.swift in Sources */,
-				DB71787325EDEA5B004166B8 /* Animations.swift in Sources */,
+				DB7178B025EDF2C6004166B8 /* CounterListRouter.swift in Sources */,
+				DB7178B525EDF347004166B8 /* CounterListPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
