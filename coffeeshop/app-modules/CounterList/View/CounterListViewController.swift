@@ -657,14 +657,6 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     
     func updateCounterCell(type:Int){
         
-        if GLCounterCell == nil {
-            print("Salio el NIL")
-        }
-        
-        if self.tableViewCounters == nil {
-            print("tableViewCounters == nil")
-        }
-        
         if let indexPathTapped = self.tableViewCounters.indexPath(for: GLCounterCell) {
             if type == 1 {
                 GLCounterCell.GLCounter.count = GLCounterCell.GLCounter.count + 1
