@@ -657,35 +657,47 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     
     func updateCounterCell(type:Int){
         
-        let indexPathTapped = self.tableViewCounters.indexPath(for: GLCounterCell)!
-        
-        if type == 1 {
-            GLCounterCell.GLCounter.count = GLCounterCell.GLCounter.count + 1
-        }else {
-            GLCounterCell.GLCounter.count = GLCounterCell.GLCounter.count - 1
+        if GLCounterCell == nil {
+            print("Salio el NIL")
         }
         
-        if isSearchingInfo {
-            
-            filteredLocalCounterList[indexPathTapped.row] = GLCounterCell.GLCounter
-            
-            for (index, counter) in arrayLocalCounterList.enumerated() {
-                if counter.id == GLCounterCell.GLCounter.id {
-                    arrayLocalCounterList[index] = GLCounterCell.GLCounter
-                    break
-                }
+        if self.tableViewCounters == nil {
+            print("tableViewCounters == nil")
+        }
+        
+        if let indexPathTapped = self.tableViewCounters.indexPath(for: GLCounterCell) {
+            if type == 1 {
+                GLCounterCell.GLCounter.count = GLCounterCell.GLCounter.count + 1
+            }else {
+                GLCounterCell.GLCounter.count = GLCounterCell.GLCounter.count - 1
             }
             
+            if isSearchingInfo {
+                
+                filteredLocalCounterList[indexPathTapped.row] = GLCounterCell.GLCounter
+                
+                for (index, counter) in arrayLocalCounterList.enumerated() {
+                    if counter.id == GLCounterCell.GLCounter.id {
+                        arrayLocalCounterList[index] = GLCounterCell.GLCounter
+                        break
+                    }
+                }
+                
+            }else {
+                arrayLocalCounterList[indexPathTapped.row] = GLCounterCell.GLCounter
+            }
+            
+            //GLCounterCell.colorDependingValue(count: GLCounterCell.GLCounter.count)
+            
+            self.tableViewCounters.reloadRows(at: [indexPathTapped], with: .fade)
+            GLCounterCell = nil
+            
+            totalItemsAndCalculatedTimes()
         }else {
-            arrayLocalCounterList[indexPathTapped.row] = GLCounterCell.GLCounter
+            print("This shouldn't happen.  The indexPath should be returned by tableView!")
         }
         
-        //GLCounterCell.colorDependingValue(count: GLCounterCell.GLCounter.count)
         
-        self.tableViewCounters.reloadRows(at: [indexPathTapped], with: .fade)
-        GLCounterCell = nil
-        
-        totalItemsAndCalculatedTimes()
         
     }
     
@@ -793,12 +805,11 @@ class CounterListViewController: UIViewController, UISearchResultsUpdating, UITa
     func touchErrorInformationAction() {
         switch GLTypeButtonAction {
             case typeOpenAction.CreateCounter.rawValue:
-                //openCreateCounter()
-                print("openCreateCounter")
+                openCreateCounter()
             case typeOpenAction.Retry.rawValue:
                 initFlowCounters()
         default:
-            print("Vientos")
+            print("touchErrorInformationAction")
         }
     }
     

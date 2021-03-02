@@ -70,6 +70,7 @@ class AddCounterViewController: UIViewController, AddCounterProtocol {
     
     @IBAction func actionHandlerSave(_ sender: Any) {
         initFlowAddCounter()
+        textFieldTitleCounter.resignFirstResponder()
     }
     
     func initFlowAddCounter(){
